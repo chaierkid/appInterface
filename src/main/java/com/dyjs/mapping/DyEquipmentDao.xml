@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dyjs.dao.DyEquipmentDao">
+  <resultMap id="BaseResultMap" type="com.dyjs.entity.DyEquipment">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="equipment_type_id" jdbcType="VARCHAR" property="equipmentTypeId" />
+    <result column="equipment_parent_id" jdbcType="VARCHAR" property="equipmentParentId" />
+    <result column="equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="equipment_code" jdbcType="VARCHAR" property="equipmentCode" />
+    <result column="equipment_password" jdbcType="VARCHAR" property="equipmentPassword" />
+    <result column="equipment_icon" jdbcType="VARCHAR" property="equipmentIcon" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="standard" jdbcType="VARCHAR" property="standard" />
+    <result column="product_date" jdbcType="VARCHAR" property="productDate" />
+    <result column="certificate" jdbcType="VARCHAR" property="certificate" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="online_state" jdbcType="INTEGER" property="onlineState" />
+    <result column="tab_is_delete" jdbcType="INTEGER" property="tabIsDelete" />
+    <result column="tab_create_date" jdbcType="TIMESTAMP" property="tabCreateDate" />
+    <result column="tab_creator_id" jdbcType="VARCHAR" property="tabCreatorId" />
+    <result column="tab_creator_name" jdbcType="VARCHAR" property="tabCreatorName" />
+    <result column="tab_modify_date" jdbcType="TIMESTAMP" property="tabModifyDate" />
+    <result column="tab_modifier_id" jdbcType="VARCHAR" property="tabModifierId" />
+    <result column="tab_modifier_name" jdbcType="VARCHAR" property="tabModifierName" />
+    <result column="tab_remark" jdbcType="VARCHAR" property="tabRemark" /> 
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, version, equipment_type_id, equipment_parent_id, equipment_name, equipment_code, 
+    equipment_password, equipment_icon, manufacturer, supplier, brand, standard, product_date, 
+    certificate, sort, online_state, tab_is_delete, tab_create_date, tab_creator_id, 
+    tab_creator_name, tab_modify_date, tab_modifier_id, tab_modifier_name, tab_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.dyjs.entity.DyEquipmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dy_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dy_equipment
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dy_equipment
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dyjs.entity.DyEquipmentExample">
+    delete from dy_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dyjs.entity.DyEquipment">
+    insert into dy_equipment (ID, version, equipment_type_id, 
+      equipment_parent_id, equipment_name, equipment_code, 
+      equipment_password, equipment_icon, manufacturer, 
+      supplier, brand, standard, 
+      product_date, certificate, sort, 
+      online_state, tab_is_delete, tab_create_date, 
+      tab_creator_id, tab_creator_name, tab_modify_date, 
+      tab_modifier_id, tab_modifier_name, tab_remark
+      )
+    values (#{id,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{equipmentTypeId,jdbcType=VARCHAR}, 
+      #{equipmentParentId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentCode,jdbcType=VARCHAR}, 
+      #{equipmentPassword,jdbcType=VARCHAR}, #{equipmentIcon,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, 
+      #{supplier,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, 
+      #{productDate,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{onlineState,jdbcType=INTEGER}, #{tabIsDelete,jdbcType=INTEGER}, #{tabCreateDate,jdbcType=TIMESTAMP}, 
+      #{tabCreatorId,jdbcType=VARCHAR}, #{tabCreatorName,jdbcType=VARCHAR}, #{tabModifyDate,jdbcType=TIMESTAMP}, 
+      #{tabModifierId,jdbcType=VARCHAR}, #{tabModifierName,jdbcType=VARCHAR}, #{tabRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dyjs.entity.DyEquipment">
+    insert into dy_equipment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="equipmentTypeId != null">
+        equipment_type_id,
+      </if>
+      <if test="equipmentParentId != null">
+        equipment_parent_id,
+      </if>
+      <if test="equipmentName != null">
+        equipment_name,
+      </if>
+      <if test="equipmentCode != null">
+        equipment_code,
+      </if>
+      <if test="equipmentPassword != null">
+        equipment_password,
+      </if>
+      <if test="equipmentIcon != null">
+        equipment_icon,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="standard != null">
+        standard,
+      </if>
+      <if test="productDate != null">
+        product_date,
+      </if>
+      <if test="certificate != null">
+        certificate,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="onlineState != null">
+        online_state,
+      </if>
+      <if test="tabIsDelete != null">
+        tab_is_delete,
+      </if>
+      <if test="tabCreateDate != null">
+        tab_create_date,
+      </if>
+      <if test="tabCreatorId != null">
+        tab_creator_id,
+      </if>
+      <if test="tabCreatorName != null">
+        tab_creator_name,
+      </if>
+      <if test="tabModifyDate != null">
+        tab_modify_date,
+      </if>
+      <if test="tabModifierId != null">
+        tab_modifier_id,
+      </if>
+      <if test="tabModifierName != null">
+        tab_modifier_name,
+      </if>
+      <if test="tabRemark != null">
+        tab_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentTypeId != null">
+        #{equipmentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentParentId != null">
+        #{equipmentParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentCode != null">
+        #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentPassword != null">
+        #{equipmentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentIcon != null">
+        #{equipmentIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null">
+        #{productDate,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null">
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="tabIsDelete != null">
+        #{tabIsDelete,jdbcType=INTEGER},
+      </if>
+      <if test="tabCreateDate != null">
+        #{tabCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabCreatorId != null">
+        #{tabCreatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="tabCreatorName != null">
+        #{tabCreatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="tabModifyDate != null">
+        #{tabModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabModifierId != null">
+        #{tabModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="tabModifierName != null">
+        #{tabModifierName,jdbcType=VARCHAR},
+      </if>
+      <if test="tabRemark != null">
+        #{tabRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dyjs.entity.DyEquipmentExample" resultType="java.lang.Long">
+    select count(*) from dy_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dy_equipment
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentTypeId != null">
+        equipment_type_id = #{record.equipmentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentParentId != null">
+        equipment_parent_id = #{record.equipmentParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentName != null">
+        equipment_name = #{record.equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentCode != null">
+        equipment_code = #{record.equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentPassword != null">
+        equipment_password = #{record.equipmentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentIcon != null">
+        equipment_icon = #{record.equipmentIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null">
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standard != null">
+        standard = #{record.standard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productDate != null">
+        product_date = #{record.productDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificate != null">
+        certificate = #{record.certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.onlineState != null">
+        online_state = #{record.onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="record.tabIsDelete != null">
+        tab_is_delete = #{record.tabIsDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.tabCreateDate != null">
+        tab_create_date = #{record.tabCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tabCreatorId != null">
+        tab_creator_id = #{record.tabCreatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabCreatorName != null">
+        tab_creator_name = #{record.tabCreatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabModifyDate != null">
+        tab_modify_date = #{record.tabModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tabModifierId != null">
+        tab_modifier_id = #{record.tabModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabModifierName != null">
+        tab_modifier_name = #{record.tabModifierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabRemark != null">
+        tab_remark = #{record.tabRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dy_equipment
+    set ID = #{record.id,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER},
+      equipment_type_id = #{record.equipmentTypeId,jdbcType=VARCHAR},
+      equipment_parent_id = #{record.equipmentParentId,jdbcType=VARCHAR},
+      equipment_name = #{record.equipmentName,jdbcType=VARCHAR},
+      equipment_code = #{record.equipmentCode,jdbcType=VARCHAR},
+      equipment_password = #{record.equipmentPassword,jdbcType=VARCHAR},
+      equipment_icon = #{record.equipmentIcon,jdbcType=VARCHAR},
+      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      standard = #{record.standard,jdbcType=VARCHAR},
+      product_date = #{record.productDate,jdbcType=VARCHAR},
+      certificate = #{record.certificate,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      online_state = #{record.onlineState,jdbcType=INTEGER},
+      tab_is_delete = #{record.tabIsDelete,jdbcType=INTEGER},
+      tab_create_date = #{record.tabCreateDate,jdbcType=TIMESTAMP},
+      tab_creator_id = #{record.tabCreatorId,jdbcType=VARCHAR},
+      tab_creator_name = #{record.tabCreatorName,jdbcType=VARCHAR},
+      tab_modify_date = #{record.tabModifyDate,jdbcType=TIMESTAMP},
+      tab_modifier_id = #{record.tabModifierId,jdbcType=VARCHAR},
+      tab_modifier_name = #{record.tabModifierName,jdbcType=VARCHAR},
+      tab_remark = #{record.tabRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dyjs.entity.DyEquipment">
+    update dy_equipment
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentTypeId != null">
+        equipment_type_id = #{equipmentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentParentId != null">
+        equipment_parent_id = #{equipmentParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentName != null">
+        equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentCode != null">
+        equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentPassword != null">
+        equipment_password = #{equipmentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentIcon != null">
+        equipment_icon = #{equipmentIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="productDate != null">
+        product_date = #{productDate,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null">
+        online_state = #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="tabIsDelete != null">
+        tab_is_delete = #{tabIsDelete,jdbcType=INTEGER},
+      </if>
+      <if test="tabCreateDate != null">
+        tab_create_date = #{tabCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabCreatorId != null">
+        tab_creator_id = #{tabCreatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="tabCreatorName != null">
+        tab_creator_name = #{tabCreatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="tabModifyDate != null">
+        tab_modify_date = #{tabModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabModifierId != null">
+        tab_modifier_id = #{tabModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="tabModifierName != null">
+        tab_modifier_name = #{tabModifierName,jdbcType=VARCHAR},
+      </if>
+      <if test="tabRemark != null">
+        tab_remark = #{tabRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dyjs.entity.DyEquipment">
+    update dy_equipment
+    set version = #{version,jdbcType=INTEGER},
+      equipment_type_id = #{equipmentTypeId,jdbcType=VARCHAR},
+      equipment_parent_id = #{equipmentParentId,jdbcType=VARCHAR},
+      equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      equipment_password = #{equipmentPassword,jdbcType=VARCHAR},
+      equipment_icon = #{equipmentIcon,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      product_date = #{productDate,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      online_state = #{onlineState,jdbcType=INTEGER},
+      tab_is_delete = #{tabIsDelete,jdbcType=INTEGER},
+      tab_create_date = #{tabCreateDate,jdbcType=TIMESTAMP},
+      tab_creator_id = #{tabCreatorId,jdbcType=VARCHAR},
+      tab_creator_name = #{tabCreatorName,jdbcType=VARCHAR},
+      tab_modify_date = #{tabModifyDate,jdbcType=TIMESTAMP},
+      tab_modifier_id = #{tabModifierId,jdbcType=VARCHAR},
+      tab_modifier_name = #{tabModifierName,jdbcType=VARCHAR},
+      tab_remark = #{tabRemark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页SQL语句 -->  
+	<select id="selectEquipmentsByPage" parameterType="map" resultMap="BaseResultMap">  
+	  select * from dy_equipment  
+	</select>  
+	<!-- 取得记录的总数 -->  
+	<select id="getEquipmentsCount" resultType="long">  
+	  SELECT COUNT(*) FROM dy_equipment  
+	</select> 
+	
+</mapper>
